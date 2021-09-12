@@ -1,13 +1,31 @@
 package cgm.testdev.dto;
 
+import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class PatientDTO {
+	
+	@JsonProperty("id")
 	private int id;
+	
+	@JsonProperty("name")
 	private String name;
+	
+	@JsonProperty("surname")
 	private String surname;
+	
+	@JsonFormat(pattern="dd-MM-yyyy")
+	@JsonProperty("birthDate")
 	private LocalDate birthDate;
+	
+	@JsonProperty("socialSecurityNumber")
 	private String socialSecurityNumber;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -37,6 +55,10 @@ public class PatientDTO {
 	}
 	public void setSocialSecurityNumber(String socialSecurityNumber) {
 		this.socialSecurityNumber = socialSecurityNumber;
+	}
+	
+	public String toString() {
+		return reflectionToString(this);
 	}
 	
 	

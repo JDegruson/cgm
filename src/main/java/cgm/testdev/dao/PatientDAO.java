@@ -20,12 +20,10 @@ public class PatientDAO extends JdbcTemplateForDAO implements IPatientDAO{
 	
 	@Override
 	public Patient getPatient(int id) {
-		
-		
-		logger.info("getName with id");
+		logger.info("getPatient with id {}", id);
 		MapSqlParameterSource args = new MapSqlParameterSource();
 		args.addValue("id", id);
-		return this.jdbcTemplate.queryForObject("select * from Patient where id = :id", args, new PatientRowMapper());
+		return this.jdbcTemplate.queryForObject("SELECT ID, NAME, SURNAME, BIRTH_DATE, SOCIAL_SECURITY_NUMBER FROM PATIENT WHERE ID = :id", args, new PatientRowMapper());
 	}
 
 }

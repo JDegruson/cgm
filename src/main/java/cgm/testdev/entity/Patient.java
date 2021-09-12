@@ -1,5 +1,7 @@
 package cgm.testdev.entity;
 
+import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+
 import java.time.LocalDate;
 
 public class Patient {
@@ -40,5 +42,9 @@ public class Patient {
 	}
 	public void setSocialSecurityNumber(String socialSecurityNumber) {
 		this.socialSecurityNumber = socialSecurityNumber;
-	}	
+	}
+	
+	public String toString() {
+		return reflectionToString(this);
+	}
 }

@@ -1,5 +1,8 @@
 package cgm.testdev.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,20 +13,23 @@ import cgm.testdev.entity.Patient;
 @Service
 public class PatientService implements IPatientService{
 	
-	@Autowired IPatientDAO patientDAO;
+	private static final Logger logger = LogManager.getLogger(PatientService.class);
 	
+	@Autowired
+	private IPatientDAO patientDAO;
+	
+
 	@Override
 	public PatientDTO getPatient(int id) {
-		PatientDTO patientDTO = new PatientDTO();
+		logger.info("getPatient with id {}", id);
 		
+		ModelMapper modelMapper = new ModelMapper();
+
+		Patient patient = this.patientDAO.getPatient(id);
+		logger.info("Patient retrieved : {}", patient);
 		
-		Patient patient = patientDAO.getPatient(id);
-		
-		patientDTO.setId(patient.getId());
-		patientDTO.setName(patient.getName());
-		patientDTO.setSocialSecurityNumber(patient.getSocialSecurityNumber());
-		patientDTO.setSurname(patient.getSurname());
-		patientDTO.setBirthDate(patient.getBirthDate());
+		PatientDTO patientDTO = modelMapper.map(patient, PatientDTO.class);
+		logger.info("PatientDTO mapped : {}", patientDTO);
 
 		return patientDTO;
 	}
